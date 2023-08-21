@@ -26,5 +26,11 @@ Open a terminal and navigate to the directory containing your Ansible playbook a
 
 ```
 ansible-playbook k8s_mlflow.yml -i inventory.yml
-
+```
+### if docker fails to build run below commands in all nodes:
+```
+systemctl restart NetworkManager.service
+```
+```
+sudo service docker restart
 ```
