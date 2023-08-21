@@ -1,0 +1,10 @@
+---
+- name: Mlflow namespace
+  when: inventory_hostname in groups["manager"]
+  block:
+  - name: Create Namespace
+    k8s:
+      api_version: v1
+      kind: Namespace
+      name: mlflow
+      state: present

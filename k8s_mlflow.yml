@@ -1,0 +1,7 @@
+- name: Setup Mlflow on K8s Cluster
+  hosts: all
+  become: true
+  gather_facts: true
+
+  roles:
+    - k8s_mlflow

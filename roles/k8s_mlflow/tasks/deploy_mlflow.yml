@@ -1,0 +1,21 @@
+---
+- name: Mlflow Deployment
+  when: inventory_hostname in groups["manager"]
+  block:
+    - name: Deploy MLflow Deployment
+      k8s:
+        api_version: apps/v1
+        kind: Deployment
+        name: mlflow-deployment
+        namespace: mlflow
+        definition: "{{ lookup('template', 'template/mlflow_deployment.yaml.j2') | from_yaml }}"
+        state: present
+
+    - name: Deploy MLflow Service
+      k8s:
+        api_version: v1
+        kind: Service
+        name: mlflow-service
+        namespace: mlflow
+        definition: "{{ lookup('template', 'template/mlflow_service.yaml.j2') | from_yaml }}"
+        state: present

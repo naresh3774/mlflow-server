@@ -1,0 +1,4 @@
+---
+# Dockerfile Configuration
+tag: v0.0.1
+imageName: mlflow-server

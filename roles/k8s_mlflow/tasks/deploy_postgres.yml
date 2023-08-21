@@ -1,0 +1,39 @@
+---
+- name: Postgress Deployment
+  when: inventory_hostname in groups["manager"]
+  block:
+    - name: Deploy postgres Deployment
+      k8s:
+        api_version: apps/v1
+        kind: Deployment
+        name: postgres-deployment
+        namespace: mlflow
+        definition: "{{ lookup('template', 'template/postgres_deployment.yaml.j2') | from_yaml }}"
+        state: present
+
+    - name: Deploy postgres Service
+      k8s:
+        api_version: v1
+        kind: Service
+        name: postgres-service
+        namespace: mlflow
+        definition: "{{ lookup('template', 'template/postgres_service.yaml.j2') | from_yaml }}"
+        state: present
+
+    - name: Deploy postgres Secret
+      k8s:
+        api_version: apps/v1
+        kind: Secret
+        name: postgres-secret
+        namespace: mlflow
+        definition: "{{ lookup('template', 'template/postgres_secret.yaml.j2') | from_yaml }}"
+        state: present
+
+    - name: Create PostgreSQL PersistentVolumeClaim
+      k8s:
+        api_version: v1
+        kind: PersistentVolumeClaim
+        name: postgres-pvc
+        namespace: mlflow
+        definition: "{{ lookup('template', 'template/postgres_pvc.yaml.j2') | from_yaml }}"
+        state: present

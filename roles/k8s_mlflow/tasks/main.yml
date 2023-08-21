@@ -1,0 +1,12 @@
+---
+- name: Build Dockerfile and create mlflow server image
+  ansible.builtin.include_tasks: build_image.yml
+
+- name: Create mlflow namespace
+  ansible.builtin.include_tasks: namespace.yml
+
+- name: Deploy postgres backend
+  ansible.builtin.include_tasks: deploy_postgres.yml
+
+- name: Deploy Mlflow
+  ansible.builtin.include_tasks: deploy_mlflow.yml

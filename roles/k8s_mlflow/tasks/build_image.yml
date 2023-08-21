@@ -1,0 +1,36 @@
+---
+- name: Build Dockerfile
+  block:
+    - name: Install pip3 on centos/RHEL
+      yum:
+        name: python3-pip
+        state: present
+      when: ansible_distribution in ["CentOS", "RedHat", "Rocky"]
+
+    - name: Install pip3 on Debian/Ubuntu
+      apt:
+        name: python3-pip
+        state: present
+      when: ansible_distribution in ["Debian", "Ubuntu"]
+
+    - name: install pre-requisites
+      pip:
+        name:
+          - openshift
+          - pyyaml
+          - kubernetes 
+
+    - name: Copy Dockerfile
+      ansible.builtin.copy:
+        src: "{{ role_path }}/files/Dockerfile"
+        dest: /tmp/Dockerfile
+        mode: '0644'
+  
+    - name: Build MlFlow Server Image
+      community.docker.docker_image:
+        name: "{{ imageName }}"
+        tag: "{{ tag }}"
+        build:
+          path: /tmp
+        source: build 
+        state: present

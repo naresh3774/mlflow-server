@@ -1,0 +1,26 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mlflow-deployment
+  namespace: mlflow
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mlflow
+  template:
+    metadata:
+      labels:
+        app: mlflow
+    spec:
+      containers:
+        - name: mlflow-server
+          image: mlflow-server:v0.0.1
+          env:
+            - name: MLFLOW_TRACKING_URI
+              value: "postgresql://username:password@postgres-service:5432/mlflow_db"  # Update with your PostgreSQL details
+          ports:
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 5000
