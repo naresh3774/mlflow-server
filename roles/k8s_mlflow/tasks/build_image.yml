@@ -18,7 +18,8 @@
         name:
           - openshift
           - pyyaml
-          - kubernetes 
+          - kubernetes
+          - docker
 
     - name: Copy Dockerfile
       ansible.builtin.copy:
