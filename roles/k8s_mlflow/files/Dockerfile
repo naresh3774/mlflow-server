@@ -19,4 +19,4 @@ ENV PATH="/opt/venv/bin:$PATH"
 
 # Defining start up command
 EXPOSE 5000
-ENTRYPOINT ["mlflow", "server"]
+ENTRYPOINT ["mlflow", "server", "--host", "0.0.0.0"]
