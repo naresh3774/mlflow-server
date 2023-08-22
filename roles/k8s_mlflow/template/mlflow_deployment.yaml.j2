@@ -20,6 +20,12 @@ spec:
           env:
             - name: MLFLOW_TRACKING_URI
               value: "postgresql://username:password@postgres-service:5432/mlflow_db"  # Update with your PostgreSQL details
+            - name: MLFLOW_S3_ENDPOINT_URL
+              value: "http://minio-service:9000"
+            - name: AWS_ACCESS_KEY_ID
+              value: "{{ minio_access_key }}"
+            - name: AWS_SECRET_ACCESS_KEY
+              value: "{{ minio_secret_key }}"
           ports:
           imagePullPolicy: Never
           ports:

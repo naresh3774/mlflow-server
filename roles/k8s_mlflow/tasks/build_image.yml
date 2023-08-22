@@ -25,13 +25,13 @@
       ansible.builtin.copy:
         src: "{{ role_path }}/files/Dockerfile"
         dest: /tmp/Dockerfile
-        mode: '0644'
-  
+        mode: "0644"
+
     - name: Build MlFlow Server Image
       community.docker.docker_image:
         name: "{{ imageName }}"
         tag: "{{ tag }}"
         build:
           path: /tmp
-        source: build 
+        source: build
         state: present
