@@ -2,7 +2,7 @@
 - name: Postgress Deployment
   when: inventory_hostname in groups["manager"]
   block:
-    - name: Deploy postgres Deployment
+    - name: Deploy postgres
       k8s:
         api_version: apps/v1
         kind: Deployment

@@ -1,0 +1,29 @@
+---
+- name: Minio Deployment
+  when: inventory_hostname in groups["manager"]
+  block:
+    - name: Deploy Minio
+      k8s:
+        api_version: apps/v1
+        kind: Deployment
+        name: minio-deployment
+        namespace: mlflow
+        definition: "{{ lookup('template', 'template/minio_deployment.yaml.j2') | from_yaml }}"
+        state: present
+
+    - name: Deploy minio Service
+      k8s:
+        api_version: v1
+        kind: Service
+        name: minio-service
+        namespace: mlflow
+        definition: "{{ lookup('template', 'template/minio_service.yaml.j2') | from_yaml }}"
+
+    - name: Create Minio PersistentVolumeClaim
+      k8s:
+        api_version: v1
+        kind: PersistentVolumeClaim
+        name: minio-data-pvc
+        namespace: mlflow
+        definition: "{{ lookup('template', 'template/minio_pvc.yaml.j2') | from_yaml }}"
+        state: present
