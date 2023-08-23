@@ -2,19 +2,19 @@
 - name: Build Dockerfile
   block:
     - name: Install pip3 on centos/RHEL
-      yum:
+      ansible.builtin.yum:
         name: python3-pip
         state: present
       when: ansible_distribution in ["CentOS", "RedHat", "Rocky"]
 
     - name: Install pip3 on Debian/Ubuntu
-      apt:
+      ansible.builtin.apt:
         name: python3-pip
         state: present
       when: ansible_distribution in ["Debian", "Ubuntu"]
 
-    - name: install pre-requisites
-      pip:
+    - name: Install pre-requisites python modules
+      ansible.builtin.pip:
         name:
           - openshift
           - pyyaml
@@ -29,7 +29,7 @@
 
     - name: Build MlFlow Server Image
       community.docker.docker_image:
-        name: "{{ imageName }}"
+        name: "{{ image_name }}"
         tag: "{{ tag }}"
         build:
           path: /tmp

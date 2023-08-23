@@ -3,7 +3,7 @@
   when: inventory_hostname in groups["manager"]
   block:
     - name: Deploy postgres
-      k8s:
+      kubernetes.core.k8s:
         api_version: apps/v1
         kind: Deployment
         name: postgres-deployment
@@ -12,7 +12,7 @@
         state: present
 
     - name: Deploy postgres Service
-      k8s:
+      kubernetes.core.k8s:
         api_version: v1
         kind: Service
         name: postgres-service
@@ -21,7 +21,7 @@
         state: present
 
     - name: Deploy postgres Secret
-      k8s:
+      kubernetes.core.k8s:
         api_version: apps/v1
         kind: Secret
         name: postgres-secret
@@ -30,7 +30,7 @@
         state: present
 
     - name: Create PostgreSQL PersistentVolumeClaim
-      k8s:
+      kubernetes.core.k8s:
         api_version: v1
         kind: PersistentVolumeClaim
         name: postgres-pvc

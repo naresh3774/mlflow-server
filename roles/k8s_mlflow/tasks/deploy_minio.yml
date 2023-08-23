@@ -3,7 +3,7 @@
   when: inventory_hostname in groups["manager"]
   block:
     - name: Deploy Minio
-      k8s:
+      kubernetes.core.k8s:
         api_version: apps/v1
         kind: Deployment
         name: minio-deployment
@@ -12,7 +12,7 @@
         state: present
 
     - name: Deploy minio Service
-      k8s:
+      kubernetes.core.k8s:
         api_version: v1
         kind: Service
         name: minio-service
@@ -20,7 +20,7 @@
         definition: "{{ lookup('template', 'template/minio_service.yaml.j2') | from_yaml }}"
 
     - name: Create Minio PersistentVolumeClaim
-      k8s:
+      kubernetes.core.k8s:
         api_version: v1
         kind: PersistentVolumeClaim
         name: minio-data-pvc
