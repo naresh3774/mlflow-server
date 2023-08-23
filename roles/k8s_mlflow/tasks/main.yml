@@ -8,5 +8,8 @@
 - name: Deploy postgres backend
   ansible.builtin.include_tasks: deploy_postgres.yml
 
+- name: Deploy Minio
+  ansible.builtin.include_tasks: deploy_minio.yml
+
 - name: Deploy Mlflow
   ansible.builtin.include_tasks: deploy_mlflow.yml
