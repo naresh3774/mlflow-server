@@ -23,6 +23,6 @@ spec:
           value: "{{ minio_access_key }}"
         - name: MINIO_SECRET_KEY
           value: "{{ minio_secret_key }}"
-        volumeMounts:
-        - name: minio-data
-          mountPath: /data
+      volumeMounts:
+      - name: minio-data
+        mountPath: /data
