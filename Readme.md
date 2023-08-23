@@ -25,7 +25,7 @@ After the deployment is complete, you can verify that MLflow services are up and
 Open a terminal and navigate to the directory containing your Ansible playbook and Kubernetes configuration files. Run the following command:
 
 ```
-ansible-playbook k8s_mlflow.yml -i inventory.yml
+ansible-playbook -i inventory.yml k8s_mlflow.yml
 ```
 
 ### if docker fails to build run below commands in all nodes:
